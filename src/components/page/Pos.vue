@@ -218,11 +218,12 @@ methods:{
 			this.$message.error('请选择要购买的商品！');
 		}
 	},
-	mounted:function(){
+	
+ },
+ mounted:function(){
 		var orderHeight=document.body.clientHeight;
 		document.getElementById("order_list").style.height=orderHeight+'px';
-		},
- },
+	}
 }
 </script>
 
@@ -231,6 +232,7 @@ methods:{
 		background-color: #f9fafc;
 		border-right: 1px solid #c0ccda;
 		text-align:center;
+
 	}
 	.div_btn{
 		margin-top: 10px;
