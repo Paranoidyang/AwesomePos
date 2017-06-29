@@ -183,9 +183,13 @@ methods:{
       },
 
       delAllGoods(){
+      	if(this.totalCount!=0){
       	this.tableData=[];
       	this.totalCount=0;
       	this.totalMoney=0;
+      	}else{
+      		this.$message.error('您未选择购买的商品！');
+      	}
       },
 
 	 //进行数量和价格的汇总计算
@@ -210,6 +214,8 @@ methods:{
 	      		message:"结账成功，感谢光临！",
 	      		type:"success"
 	      	})
+		}else{
+			this.$message.error('请选择要购买的商品！');
 		}
 	},
 	mounted:function(){
