@@ -11,7 +11,7 @@
 							<el-table-column prop="price" label="单价"width="70"></el-table-column>
 							<el-table-column  label="操作" width="100" fixed="right">
 							<template scope="scope">
-								<el-button type="text" size="small">删除</el-button>
+								<el-button type="text" size="small" @click="delSingleGoods(scope.row)">删除</el-button>
 								<el-button type="text" size="small" @click="addOrderList(scope.row)">增加</el-button>
 							</template>
 							</el-table-column>
@@ -22,8 +22,8 @@
 
 					<div class="div_btn">
 						<el-button type="warning" >挂单</el-button>
-						<el-button type="danger" >删除</el-button>
-						<el-button type="success" >结账</el-button>
+						<el-button type="danger" @click="delAllGoods()">删除</el-button>
+						<el-button type="success" @click="checkout()">结账</el-button>
 					</div>
 					</el-tab-pane>
 
@@ -150,7 +150,7 @@ export default {
 methods:{
       //添加订单列表的方法
       addOrderList(goods){
-      		 this.totalCount=0; //汇总数量清0
+      		this.totalCount=0; //汇总数量清0
             this.totalMoney=0;
             let isHave=false;
             //判断是否这个商品已经存在于订单列表
@@ -173,20 +173,50 @@ methods:{
                  this.tableData.push(newGoods);
  
             }
- 
-            //进行数量和价格的汇总计算
-            this.tableData.forEach((element) => {
-                this.totalCount+=element.count;
-                this.totalMoney+=element.price*element.count;   
-            });
+			this.getAllMoney();
            
-      }
-  },
+      },
+      //删除单件商品
+      delSingleGoods(goods){
+      	this.tableData=this.tableData.filter(o=>o.goodsId !=goods.goodsId);
+      	this.getAllMoney();
+      },
 
-	mounted:function(){
-	var orderHeight=document.body.clientHeight;
-	document.getElementById("order_list").style.height=orderHeight+'px';
+      delAllGoods(){
+      	this.tableData=[];
+      	this.totalCount=0;
+      	this.totalMoney=0;
+      },
+
+	 //进行数量和价格的汇总计算
+	getAllMoney(){
+		this.totalCount=0; //汇总数量清0
+	    this.totalMoney=0;
+		if(this.tableData) {
+	            this.tableData.forEach((element) => {
+	                this.totalCount+=element.count;
+	                this.totalMoney+=element.price*element.count;   
+	            });
+		}
 	},
+	//模拟结账
+	checkout(){
+		if(this.totalCount!=0){
+			this.tableData=[];
+	      	this.totalCount=0;
+	      	this.totalMoney=0;
+	      	//element提供的
+	      	this.$message({
+	      		message:"结账成功，感谢光临！",
+	      		type:"success"
+	      	})
+		}
+	},
+	mounted:function(){
+		var orderHeight=document.body.clientHeight;
+		document.getElementById("order_list").style.height=orderHeight+'px';
+		},
+ },
 }
 </script>
 
