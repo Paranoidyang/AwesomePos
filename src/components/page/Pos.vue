@@ -107,14 +107,14 @@ export default {
 	name: 'Pos',
 	data(){
 		return{
-		   tableData:[],
-		   oftenGoods:[],
+		      tableData:[],
+		     oftenGoods:[],
 	       type0Goods:[],
 	       type1Goods:[],
 	       type2Goods:[],
 	       type3Goods:[],
-	        totalCount:0, 
-            totalMoney:0,
+	       totalCount:0, 
+         totalMoney:0,
 	      
 		}
 	},
@@ -150,7 +150,7 @@ export default {
 methods:{
       //添加订单列表的方法
       addOrderList(goods){
-      		this.totalCount=0; //汇总数量清0
+      		  this.totalCount=0; //汇总数量清0
             this.totalMoney=0;
             let isHave=false;
             //判断是否这个商品已经存在于订单列表
